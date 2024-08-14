@@ -27,7 +27,6 @@ jobs:
           dnf install -y dnf-plugins-core rpmdevtools &&
           spectool --get-files --all SPECS/*.spec &&
           dnf builddep -y SPECS/*.spec &&
-          tty &&
           setsid rpmbuild --define '_topdir /workspace' -ba SPECS/*.spec
         "
 
