@@ -6,6 +6,8 @@ Summary:        Crosvm - Chrome OS Virtual Machine Monitor
 License:        BSD
 URL:            https://chromium.googlesource.com/crosvm/crosvm
 
+ExclusiveArch:  x86_64
+
 BuildRequires:  rust
 BuildRequires:  cargo
 
@@ -15,14 +17,20 @@ Crosvm is a virtual machine monitor that runs on Linux and is used primarily for
 %prep
 cd %{_builddir}/%{name}
 
+%cargo_prep
+
 %build
+cd %{_builddir}/%{name}
+
 %cargo_build --release --no-default-features --features "audio balloon config-file net pvclock swap stats usb wl-dmabuf gpu virgl_renderer vulkan_display video-decoder video-encoder vaapi"
 
 %install
+cd %{_builddir}/%{name}
+
 %cargo_install
 
 install -d -m0755 %{buildroot}%{_datadir}/policy/crosvm
-install -Dp -m0644 %{_builddir}/%{name}/seccomp/x86_64/*.policy -t %{buildroot}%{_datadir}/policy/crosvm
+install -Dp -m0644 seccomp/x86_64/*.policy -t %{buildroot}%{_datadir}/policy/crosvm
 
 %files
 %license LICENSE
