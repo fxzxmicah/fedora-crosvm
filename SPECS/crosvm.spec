@@ -1,3 +1,5 @@
+%define _buildshell /bin/bash
+
 Name:           crosvm
 Version:        1.0
 Release:        1%{?dist}
