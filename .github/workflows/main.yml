@@ -27,8 +27,7 @@ jobs:
           dnf install -y dnf-plugins-core rpmdevtools &&
           spectool --get-files --all SPECS/*.spec &&
           dnf builddep -y SPECS/*.spec &&
-          set -m &&
-          rpmbuild --define '_topdir /workspace' -ba SPECS/*.spec
+          exec rpmbuild --define '_topdir /workspace' -ba SPECS/*.spec
         "
 
     - name: Upload Artifact
