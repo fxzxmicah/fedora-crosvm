@@ -3,6 +3,12 @@ name: Build RPM
 on:
   - push
 
+defaults:
+  run:
+    # GitHub Actions run without a TTY device. This is a workaround to get one,
+    # based on https://github.com/actions/runner/issues/241#issuecomment-2019042651
+    shell: 'script --return --quiet --log-out /dev/null --command "bash -e {0}"'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,10 +30,10 @@ jobs:
     - name: Build RPM
       run: |
         docker run --rm -v $(pwd):/workspace -w /workspace fedora:latest bash -c "
-          dnf install -y dnf-plugins-core util-linux rpmdevtools &&
+          dnf install -y dnf-plugins-core rpmdevtools &&
           spectool --get-files --all SPECS/*.spec &&
           dnf builddep -y SPECS/*.spec &&
-          script -q -c \"rpmbuild --define '_topdir /workspace' -ba SPECS/*.spec\"
+          rpmbuild --define '_topdir /workspace' -ba SPECS/*.spec
         "
 
     - name: Upload Artifact
