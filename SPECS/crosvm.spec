@@ -12,7 +12,6 @@ BuildRequires:  rust
 BuildRequires:  cargo
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  clang
-BuildRequires:  pkg-config
 BuildRequires:  pkgconfig(libcap)
 BuildRequires:  pkgconfig(libdrm)
 
@@ -22,6 +21,7 @@ Crosvm is a virtual machine monitor that runs on Linux and is used primarily for
 %prep
 cd %{_builddir}/%{name}
 
+pkg-config --cflags libdrm && exit 1
 cargo fetch
 
 %build
