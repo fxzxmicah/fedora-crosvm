@@ -26,7 +26,9 @@ cargo fetch
 %build
 cd %{_builddir}/%{name}
 
-export CARGO_MAKEFLAGS="CFLAGS+=-Wno-maybe-uninitialized"
+export CFLAGS="-Wno-maybe-uninitialized"
+export CXXFLAGS="-Wno-maybe-uninitialized"
+
 cargo build --profile release --no-default-features --features "audio balloon config-file net pvclock swap stats usb wl-dmabuf gpu virgl_renderer vulkan_display video-decoder video-encoder vaapi"
 
 %install
