@@ -24,7 +24,8 @@ cd %{_builddir}/%{name}
 %build
 cd %{_builddir}/%{name}
 
-%cargo_build --release --no-default-features --features "audio balloon config-file net pvclock swap stats usb wl-dmabuf gpu virgl_renderer vulkan_display video-decoder video-encoder vaapi"
+export CARGO_BUILD_FLAGS="--release --no-default-features --features 'audio balloon config-file net pvclock swap stats usb wl-dmabuf gpu virgl_renderer vulkan_display video-decoder video-encoder vaapi'"
+%cargo_build
 
 %install
 cd %{_builddir}/%{name}
