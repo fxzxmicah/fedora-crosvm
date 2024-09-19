@@ -11,8 +11,7 @@ ExclusiveArch:  x86_64
 BuildRequires:  rust
 BuildRequires:  cargo
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  clang-libs
-BuildRequires:  libstdc++-devel
+BuildRequires:  clang
 BuildRequires:  pkgconfig(libcap)
 
 %description
