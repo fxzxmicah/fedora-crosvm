@@ -10,6 +10,7 @@ ExclusiveArch:  x86_64
 
 BuildRequires:  rust
 BuildRequires:  cargo
+BuildRequires:  cargo-rpm-macros >= 24
 
 %description
 Crosvm is a virtual machine monitor that runs on Linux and is used primarily for running Chrome OS virtual machines.
