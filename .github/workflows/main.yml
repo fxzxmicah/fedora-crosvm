@@ -26,6 +26,7 @@ jobs:
         docker run --rm -v $(pwd):/workspace -w /workspace fedora:latest bash -c "
           dnf install -y dnf-plugins-core rpmdevtools &&
           dnf builddep -y SPECS/*.spec &&
+          rpm --eval '%cargo_prep' &&
           rpmbuild --define '_topdir /workspace' -ba SPECS/*.spec
         "
 
