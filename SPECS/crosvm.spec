@@ -24,7 +24,7 @@ cargo fetch
 %build
 cd %{_builddir}/%{name}
 
-cargo build --profile release --release --no-default-features --features "audio balloon config-file net pvclock swap stats usb wl-dmabuf gpu virgl_renderer vulkan_display video-decoder video-encoder vaapi"
+cargo build --profile release --no-default-features --features "audio balloon config-file net pvclock swap stats usb wl-dmabuf gpu virgl_renderer vulkan_display video-decoder video-encoder vaapi"
 
 %install
 cd %{_builddir}/%{name}
