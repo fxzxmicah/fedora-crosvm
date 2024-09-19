@@ -17,7 +17,6 @@ Crosvm is a virtual machine monitor that runs on Linux and is used primarily for
 %prep
 cd %{_builddir}/%{name}
 
-rpm --eval '%cargo_prep'
 %cargo_prep
 
 %build
