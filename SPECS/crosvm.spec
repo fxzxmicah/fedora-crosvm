@@ -12,6 +12,7 @@ BuildRequires:  rust
 BuildRequires:  cargo
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  clang
+BuildRequires:  pkg-config
 BuildRequires:  pkgconfig(libcap)
 BuildRequires:  pkgconfig(libdrm)
 
