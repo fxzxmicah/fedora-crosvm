@@ -9,6 +9,7 @@ URL:            https://chromium.googlesource.com/crosvm/crosvm
 ExclusiveArch:  x86_64
 
 BuildRequires:  rust-packaging
+BuildRequires:  clang
 BuildRequires:  pkgconfig(libcap)
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(gbm)
@@ -20,7 +21,7 @@ Crosvm is a virtual machine monitor that runs on Linux and is used primarily for
 %prep
 cd %{_builddir}/%{name}
 
-cargo fetch
+%cargo_prep
 
 %build
 cd %{_builddir}/%{name}
