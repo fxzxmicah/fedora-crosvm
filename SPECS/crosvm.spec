@@ -35,7 +35,7 @@ strip = "symbols"
 
 %build
 
-cargo fetch
+cargo update
 
 %install
 
