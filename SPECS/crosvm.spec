@@ -43,7 +43,14 @@ strip = "symbols"
 %cargo_install %{CARGO_FLAGS}
 
 install -d -m0755 %{buildroot}%{_datadir}/policy/crosvm
-install -Dp -m0644 seccomp/x86_64/*.policy -t %{buildroot}%{_datadir}/policy/crosvm
+install -Dp -m0644 jail/seccomp/x86_64/*.policy -t %{buildroot}%{_datadir}/policy/crosvm
+echo ---------------
+find %{buildroot} -type f
+echo ---------------
+find /workspace/BUILD/.cargo -type f
+echo ---------------
+find /workspace/BUILD/target -type f
+echo ---------------
 
 %files
 %license LICENSE
