@@ -20,13 +20,14 @@ Crosvm is a virtual machine monitor that runs on Linux and is used primarily for
 
 %prep
 
-cargo fetch
 %cargo_prep
 
 %build
 
 export CROSVM_USE_SYSTEM_MINIGBM=1
 export CROSVM_USE_SYSTEM_VIRGLRENDERER=1
+
+%cargo_build
 
 cargo build --profile release --no-default-features --features "audio balloon config-file net pvclock swap usb gpu virgl_renderer vulkan_display video-decoder vaapi"
 
