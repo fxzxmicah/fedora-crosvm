@@ -32,13 +32,13 @@ export CARGO_PROFILE=release
 export CROSVM_USE_SYSTEM_MINIGBM=1
 export CROSVM_USE_SYSTEM_VIRGLRENDERER=1
 
-%cargo_build -f Cargo.toml --no-default-features --features "audio balloon config-file net pvclock swap usb gpu virgl_renderer vulkan_display video-decoder vaapi"
+%cargo_build -n -f "audio balloon config-file net pvclock swap usb gpu virgl_renderer vulkan_display video-decoder vaapi"
 
-cargo build --profile release --no-default-features --features "audio balloon config-file net pvclock swap usb gpu virgl_renderer vulkan_display video-decoder vaapi"
+#cargo build --profile release --no-default-features --features "audio balloon config-file net pvclock swap usb gpu virgl_renderer vulkan_display video-decoder vaapi"
 
 %install
 
-%cargo_install
+%cargo_install -n -f "audio balloon config-file net pvclock swap usb gpu virgl_renderer vulkan_display video-decoder vaapi"
 
 install -d -m0755 %{buildroot}%{_datadir}/policy/crosvm
 install -Dp -m0644 seccomp/x86_64/*.policy -t %{buildroot}%{_datadir}/policy/crosvm
