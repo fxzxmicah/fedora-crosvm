@@ -1,5 +1,4 @@
-%global CROSVM_USE_SYSTEM_MINIGBM 1
-%global CROSVM_USE_SYSTEM_VIRGLRENDERER 1
+%global setenv CROSVM_USE_SYSTEM_MINIGBM=1 CROSVM_USE_SYSTEM_VIRGLRENDERER=1
 %global CARGO_FLAGS -n -f "audio balloon config-file net pvclock swap usb gpu virgl_renderer vulkan_display video-decoder vaapi"
 
 Name:           crosvm
@@ -35,11 +34,11 @@ strip = "symbols"
 
 %build
 
-%cargo_build %{CARGO_FLAGS}
+%{setenv} %cargo_build %{CARGO_FLAGS}
 
 %install
 
-%cargo_install %{CARGO_FLAGS}
+%{setenv} %cargo_install %{CARGO_FLAGS}
 
 install -d -m0755 %{buildroot}%{_datadir}/policy/crosvm
 install -Dp -m0644 seccomp/x86_64/*.policy -t %{buildroot}%{_datadir}/policy/crosvm
