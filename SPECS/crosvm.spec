@@ -14,6 +14,7 @@ BuildRequires:  pkgconfig(libcap)
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(gbm)
 BuildRequires:  pkgconfig(virglrenderer)
+BuildRequires:  pkgconfig(wayland-protocols)
 
 %description
 Crosvm is a virtual machine monitor that runs on Linux and is used primarily for running Chrome OS virtual machines.
@@ -21,12 +22,12 @@ Crosvm is a virtual machine monitor that runs on Linux and is used primarily for
 %prep
 
 cargo fetch
-echo '
+echo "
 [profile.rpm]
 inherits = "release"
 opt-level = 3
 strip = "symbols"
-' >> Cargo.toml
+" >> Cargo.toml
 
 %build
 
