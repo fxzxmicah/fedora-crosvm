@@ -26,9 +26,10 @@ cargo fetch
 %build
 cd %{_builddir}/%{name}
 
-export PKG_CONFIG="pkg-config"
-export CFLAGS="-Wno-maybe-uninitialized"
-export CXXFLAGS="-Wno-maybe-uninitialized"
+export CROSVM_USE_SYSTEM_MINIGBM=1
+export CROSVM_USE_SYSTEM_VIRGLRENDERER=1
+export CFLAGS="$CFLAGS -Wno-maybe-uninitialized"
+export CXXFLAGS="$CXXFLAGS -Wno-maybe-uninitialized"
 
 cargo build --profile release --no-default-features --features "audio balloon config-file net pvclock swap stats usb wl-dmabuf gpu virgl_renderer vulkan_display video-decoder video-encoder vaapi"
 
