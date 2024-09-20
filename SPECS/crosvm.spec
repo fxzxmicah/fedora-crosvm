@@ -1,3 +1,7 @@
+%global CROSVM_USE_SYSTEM_MINIGBM 1
+%global CROSVM_USE_SYSTEM_VIRGLRENDERER 1
+%global CARGO_FLAGS -n -f "audio balloon config-file net pvclock swap usb gpu virgl_renderer vulkan_display video-decoder vaapi"
+
 Name:           crosvm
 Version:        1.0
 Release:        1%{?dist}
@@ -31,16 +35,11 @@ strip = "symbols"
 
 %build
 
-export CROSVM_USE_SYSTEM_MINIGBM=1
-export CROSVM_USE_SYSTEM_VIRGLRENDERER=1
-
-%cargo_build -n -f "audio balloon config-file net pvclock swap usb gpu virgl_renderer vulkan_display video-decoder vaapi"
-
-#cargo build --profile release --no-default-features --features "audio balloon config-file net pvclock swap usb gpu virgl_renderer vulkan_display video-decoder vaapi"
+%cargo_build %{CARGO_FLAGS}
 
 %install
 
-%cargo_install -n -f "audio balloon config-file net pvclock swap usb gpu virgl_renderer vulkan_display video-decoder vaapi"
+%cargo_install %{CARGO_FLAGS}
 
 install -d -m0755 %{buildroot}%{_datadir}/policy/crosvm
 install -Dp -m0644 seccomp/x86_64/*.policy -t %{buildroot}%{_datadir}/policy/crosvm
