@@ -8,15 +8,11 @@ URL:            https://chromium.googlesource.com/crosvm/crosvm
 
 ExclusiveArch:  x86_64
 
-BuildRequires:  rust
-BuildRequires:  cargo
-BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  clang
+BuildRequires:  rust-packaging
 BuildRequires:  pkgconfig(libcap)
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(gbm)
 BuildRequires:  pkgconfig(virglrenderer)
-BuildRequires:  pkgconfig(wayland-protocols)
 
 %description
 Crosvm is a virtual machine monitor that runs on Linux and is used primarily for running Chrome OS virtual machines.
@@ -32,7 +28,7 @@ cd %{_builddir}/%{name}
 export CROSVM_USE_SYSTEM_MINIGBM=1
 export CROSVM_USE_SYSTEM_VIRGLRENDERER=1
 
-cargo build --profile release --no-default-features --features "audio balloon config-file net pvclock swap stats usb wl-dmabuf gpu virgl_renderer vulkan_display video-decoder vaapi"
+cargo build --profile release --no-default-features --features "audio balloon config-file net pvclock swap usb gpu virgl_renderer vulkan_display video-decoder vaapi"
 
 %install
 cd %{_builddir}/%{name}
