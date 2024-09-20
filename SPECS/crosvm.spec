@@ -31,8 +31,6 @@ opt-level = 3
 strip = "symbols"
 ' >> Cargo.toml
 
-%cargo_prep
-
 %build
 
 cargo update
