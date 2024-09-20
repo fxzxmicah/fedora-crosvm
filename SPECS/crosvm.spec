@@ -24,7 +24,6 @@ Crosvm is a virtual machine monitor that runs on Linux and is used primarily for
 
 %prep
 
-cargo fetch
 echo '
 [profile.rpm]
 inherits = "release"
@@ -32,25 +31,18 @@ opt-level = 3
 strip = "symbols"
 ' >> Cargo.toml
 
-%build
+%cargo_prep
 
-%{setenv}
-%cargo_build %{CARGO_FLAGS}
+%build
 
 %install
 
 %{setenv}
 %cargo_install %{CARGO_FLAGS}
 
+install -m0755 .cargo/bin/crosvm %{buildroot}%{_bindir}/crosvm
 install -d -m0755 %{buildroot}%{_datadir}/policy/crosvm
 install -Dp -m0644 jail/seccomp/x86_64/*.policy -t %{buildroot}%{_datadir}/policy/crosvm
-echo ---------------
-find %{buildroot} -type f
-echo ---------------
-find /workspace/BUILD/.cargo -type f
-echo ---------------
-find /workspace/BUILD/target -type f
-echo ---------------
 
 %files
 %license LICENSE
@@ -60,6 +52,7 @@ echo ---------------
 %doc README.md
 %{_bindir}/crosvm
 %{_datadir}/policy/crosvm
+%{_datadir}/policy/crosvm/*
 
 %changelog
 * Wed Aug 14 2024 Fxzxmicah <48860358+fxzxmicah@users.noreply.github.com> - 1.0-1
