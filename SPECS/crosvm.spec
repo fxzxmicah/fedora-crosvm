@@ -35,6 +35,8 @@ strip = "symbols"
 
 %build
 
+cargo fetch
+
 %install
 
 %{setenv}
