@@ -32,7 +32,7 @@ cd %{_builddir}/%{name}
 export CROSVM_USE_SYSTEM_MINIGBM=1
 export CROSVM_USE_SYSTEM_VIRGLRENDERER=1
 
-cargo build --profile release --no-default-features --features "audio balloon config-file net pvclock swap stats usb wl-dmabuf gpu virgl_renderer vulkan_display video-decoder video-encoder vaapi"
+cargo build --profile release --no-default-features --features "audio balloon config-file net pvclock swap stats usb wl-dmabuf gpu virgl_renderer vulkan_display video-decoder vaapi"
 
 %install
 cd %{_builddir}/%{name}
