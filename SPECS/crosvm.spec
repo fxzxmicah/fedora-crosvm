@@ -21,10 +21,15 @@ Crosvm is a virtual machine monitor that runs on Linux and is used primarily for
 %prep
 
 cargo fetch
+echo '
+[profile.rpm]
+inherits = "release"
+opt-level = 3
+strip = "symbols"
+' >> Cargo.toml
 
 %build
 
-export CARGO_PROFILE=release
 export CROSVM_USE_SYSTEM_MINIGBM=1
 export CROSVM_USE_SYSTEM_VIRGLRENDERER=1
 
