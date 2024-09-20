@@ -10,6 +10,7 @@ ExclusiveArch:  x86_64
 
 BuildRequires:  rust-packaging
 BuildRequires:  clang
+BuildRequires:  jq
 BuildRequires:  pkgconfig(libcap)
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(gbm)
