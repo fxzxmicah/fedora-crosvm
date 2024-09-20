@@ -10,7 +10,6 @@ ExclusiveArch:  x86_64
 
 BuildRequires:  rust-packaging
 BuildRequires:  clang
-BuildRequires:  jq
 BuildRequires:  pkgconfig(libcap)
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(gbm)
@@ -19,15 +18,10 @@ BuildRequires:  pkgconfig(virglrenderer)
 %description
 Crosvm is a virtual machine monitor that runs on Linux and is used primarily for running Chrome OS virtual machines.
 
-%generate_buildrequires
-
-cargo metadata --format-version=1 --no-deps | \
-jq -r '.packages[] | "crate(" + .name + ") >= " + .version' | \
-sort -u
-
 %prep
 
 %cargo_prep
+cargo fetch
 
 %build
 
