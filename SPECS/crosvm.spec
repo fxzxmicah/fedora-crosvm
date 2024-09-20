@@ -26,6 +26,7 @@ cargo fetch
 %build
 cd %{_builddir}/%{name}
 
+export PKG_CONFIG="pkg-config"
 export CFLAGS="-Wno-maybe-uninitialized"
 export CXXFLAGS="-Wno-maybe-uninitialized"
 
