@@ -40,6 +40,7 @@ cargo update
 %{setenv}
 %cargo_install %{CARGO_FLAGS}
 
+install -d -m0755 %{buildroot}%{_bindir}
 install -m0755 .cargo/bin/crosvm %{buildroot}%{_bindir}/crosvm
 install -d -m0755 %{buildroot}%{_datadir}/policy/crosvm
 install -Dp -m0644 jail/seccomp/x86_64/*.policy -t %{buildroot}%{_datadir}/policy/crosvm
