@@ -19,7 +19,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: google/crosvm
-        path: BUILD
+        path: SOURCES/crosvm
         submodules: recursive
 
     - name: Build RPM
