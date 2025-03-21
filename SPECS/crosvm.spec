@@ -31,7 +31,7 @@ devices, such as the virtio standard.
 CrosVM is currently used to run Linux/Android guests on ChromeOS devices.
 
 %prep
-%autosetup -S git
+%autosetup -c -S git
 git submodule update --init --recursive
 
 echo '
