@@ -23,7 +23,7 @@ BuildRequires:  pkgconfig(wayland-protocols)
 Crosvm is a virtual machine monitor that runs on Linux and is used primarily for running Chrome OS virtual machines.
 
 %prep
-rsync -a --delete %{_sourcedir}/%{name} %{_builddir}
+mv -T %{_sourcedir}/%{name} $(pwd) && cd .
 
 echo '
 [profile.rpm]
