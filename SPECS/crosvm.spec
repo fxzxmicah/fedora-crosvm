@@ -32,7 +32,16 @@ CrosVM is currently used to run Linux/Android guests on ChromeOS devices.
 
 %prep
 %autosetup -c -S git
-git submodule update --init --recursive
+
+while IFS= read -r line; do
+    if [[ "$line" =~ path\ =\ (.*) ]]; then
+        path=${BASH_REMATCH[1]}
+    elif [[ "$line" =~ url\ =\ (.*) ]]; then
+        url=${BASH_REMATCH[1]}
+        echo "Add submodule: $url -> $path"
+        git submodule add "$url" "$path"
+    fi
+done < .gitmodules
 
 echo '
 [profile.rpm]
