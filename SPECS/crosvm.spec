@@ -4,15 +4,18 @@
 Name:           crosvm
 Version:        1.0
 Release:        1%{?dist}
-Summary:        Crosvm - Chrome OS Virtual Machine Monitor
+Summary:        CrosVM - Chrome OS Virtual Machine Monitor
 
 License:        BSD
 URL:            https://chromium.googlesource.com/crosvm/crosvm
+
+Source:        https://chromium.googlesource.com/crosvm/crosvm/+archive/refs/heads/main.tar.gz
 
 ExclusiveArch:  x86_64
 
 BuildRequires:  rust-packaging
 BuildRequires:  clang
+BuildRequires:  git-core
 BuildRequires:  pkgconfig(libcap)
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(gbm)
@@ -20,10 +23,16 @@ BuildRequires:  pkgconfig(virglrenderer)
 BuildRequires:  pkgconfig(wayland-protocols)
 
 %description
-Crosvm is a virtual machine monitor that runs on Linux and is used primarily for running Chrome OS virtual machines.
+CrosVM is a virtual machine monitor (VMM) based on Linux’s KVM hypervisor, with a focus on simplicity, security, and speed.
+CrosVM is intended to run Linux guests, originally as a security boundary for running native applications on the ChromeOS
+platform. Compared to QEMU, CrosVM doesn’t emulate architectures or real hardware, instead concentrating on paravirtualized
+devices, such as the virtio standard.
+
+CrosVM is currently used to run Linux/Android guests on ChromeOS devices.
 
 %prep
-rm -rf * && mv -T %{_sourcedir}/%{name} $(pwd) && cd .
+%autosetup -S git
+git submodule update --init --recursive
 
 echo '
 [profile.rpm]
@@ -52,7 +61,6 @@ install -Dp -m0644 jail/seccomp/x86_64/*.policy -t %{buildroot}%{_datadir}/polic
 %doc README.md
 %{_bindir}/crosvm
 %{_datadir}/policy/crosvm
-%{_datadir}/policy/crosvm/*
 
 %changelog
 * Wed Aug 14 2024 Fxzxmicah <48860358+fxzxmicah@users.noreply.github.com> - 1.0-1
