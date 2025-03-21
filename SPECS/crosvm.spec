@@ -39,6 +39,7 @@ while IFS= read -r line; do
     elif [[ "$line" =~ url\ =\ (.*) ]]; then
         url=${BASH_REMATCH[1]}
         echo "Add submodule: $url -> $path"
+        rm -r "$path"
         git submodule add "$url" "$path"
     fi
 done < .gitmodules
