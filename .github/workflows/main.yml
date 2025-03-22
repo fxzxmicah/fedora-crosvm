@@ -18,17 +18,8 @@ jobs:
     - name: Get Files
       run: |
         for spec in SPECS/*.spec; do
-          spectool --directory SOURCES --get-files --all $spec
+          spectool -R --get-files --all $spec
         done
-
-    - name: Build Dep RPM
-      run: |
-        dnf builddep -y SPECS/rust-*.spec &&
-        rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -bp SPECS/rust-*.spec &&
-        for file in BUILD/*/*/Cargo.toml; do
-          dnf install -y $(cargo2rpm --path $file buildrequires --with-check | xargs)
-        done &&
-        rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -bb SPECS/rust-*.spec
 
     - name: Create Local Repo
       run : |
@@ -39,9 +30,20 @@ jobs:
         echo "enabled=1" | tee -a /etc/yum.repos.d/local-rpm.repo
         echo "gpgcheck=0" | tee -a /etc/yum.repos.d/local-rpm.repo
 
+    - name: Build Dep RPM
+      run: |
+        PACKAGES=($(<SPECS/ORDER))
+        for package in "${PACKAGES[@]}"; do
+          dnf --refresh builddep -y SPECS/$package.spec &&
+          rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -bp SPECS/$package.spec &&
+          cargo2rpm --path BUILD/$package*/*/Cargo.toml buildrequires --with-check | sed 's/^/"/; s/$/"/' | xargs dnf --refresh install
+          rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -bb SPECS/$package.spec &&
+          createrepo --update ${GITHUB_WORKSPACE}/RPMS
+        done
+
     - name: Build RPM
       run: |
-        dnf builddep -y SPECS/!("rust-"*).spec &&
+        dnf --refresh builddep -y SPECS/!("rust-"*).spec &&
         rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -ba SPECS/!("rust-"*).spec
 
     - name: Upload Artifact
