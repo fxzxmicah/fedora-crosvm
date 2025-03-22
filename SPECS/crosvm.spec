@@ -20,6 +20,7 @@ BuildRequires:  crate(anyhow/default)
 BuildRequires:  crate(argh/default)
 BuildRequires:  crate(cfg-if/default)
 BuildRequires:  crate(enumn/default)
+BuildRequires:  crate(libc/default)
 
 BuildRequires:  clang
 BuildRequires:  pkgconfig(libcap)
