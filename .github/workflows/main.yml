@@ -13,13 +13,29 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Install Tools
-      run: dnf install -y dnf-plugins-core rpmdevtools
+      run: dnf install -y dnf-plugins-core rpmdevtools createrepo_c
+
+    - name: Get Files
+      run: spectool --get-files --directory=SOURCES --all SPECS/*.spec
+
+    - name: Build Dep RPM
+      run: |
+        dnf builddep -y SPECS/rust-*.spec &&
+        rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -bb SPECS/rust-*.spec
+
+    - name: Create Local Repo
+      run : |
+        createrepo ${GITHUB_WORKSPACE}/RPMS &&
+        echo "[local-rpm]" | tee /etc/yum.repos.d/local-rpm.repo
+        echo "name=Local RPM Repository" | tee -a /etc/yum.repos.d/local-rpm.repo
+        echo "baseurl=file://${GITHUB_WORKSPACE}/RPMS" | tee -a /etc/yum.repos.d/local-rpm.repo
+        echo "enabled=1" | tee -a /etc/yum.repos.d/local-rpm.repo
+        echo "gpgcheck=0" | tee -a /etc/yum.repos.d/local-rpm.repo
 
     - name: Build RPM
       run: |
-        spectool --get-files --directory=SOURCES --all SPECS/*.spec &&
-        dnf builddep -y SPECS/*.spec &&
-        rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -ba SPECS/*.spec
+        dnf builddep -y SPECS/!("rust-"*).spec &&
+        rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -ba SPECS/!("rust-"*).spec
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
