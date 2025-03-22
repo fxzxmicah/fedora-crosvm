@@ -32,8 +32,8 @@ devices, such as the virtio standard.
 CrosVM is currently used to run Linux/Android guests on ChromeOS devices.
 
 %prep
-%autosetup -c
-%setup -a 1 -n third_party/minijail
+%autosetup -q -c
+tar -xf %{SOURCE1} -C third_party/minijail
 
 echo '
 [profile.rpm]
@@ -42,12 +42,16 @@ opt-level = 3
 strip = "symbols"
 ' >> Cargo.toml
 
+%cargo_prep
+
 %build
 cargo update
 
-%install
 %{setenv}
-%cargo_install %{CARGO_FLAGS}
+%cargo_build %{CARGO_FLAGS}
+
+%install
+%cargo_install
 
 install -d -m0755 %{buildroot}%{_bindir}
 install -m0755 .cargo/bin/crosvm %{buildroot}%{_bindir}/crosvm
