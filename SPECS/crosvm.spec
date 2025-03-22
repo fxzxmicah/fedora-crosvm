@@ -23,6 +23,7 @@ BuildRequires:  crate(enumn/default)
 BuildRequires:  crate(libc/default)
 BuildRequires:  crate(log/default)
 BuildRequires:  crate(merge/default)
+BuildRequires:  crate(remain/default)
 
 BuildRequires:  clang
 BuildRequires:  pkgconfig(libcap)
