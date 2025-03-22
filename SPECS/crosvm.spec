@@ -24,6 +24,7 @@ BuildRequires:  crate(libc/default)
 BuildRequires:  crate(log/default)
 BuildRequires:  crate(merge/default)
 BuildRequires:  crate(remain/default)
+BuildRequires:  crate(smallvec/default)
 
 BuildRequires:  clang
 BuildRequires:  pkgconfig(libcap)
