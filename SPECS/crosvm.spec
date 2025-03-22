@@ -32,7 +32,7 @@ devices, such as the virtio standard.
 CrosVM is currently used to run Linux/Android guests on ChromeOS devices.
 
 %prep
-%autosetup -q -c
+%autosetup -c
 tar -xf %{SOURCE1} -C third_party/minijail
 
 echo '
