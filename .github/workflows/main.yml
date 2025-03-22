@@ -18,7 +18,7 @@ jobs:
     - name: Get Files
       run: |
         for spec in SPECS/*.spec; do
-          spectool -R --get-files --all $spec
+          spectool --define "_topdir ${GITHUB_WORKSPACE}" -R --get-files --all $spec
         done
 
     - name: Create Local Repo
