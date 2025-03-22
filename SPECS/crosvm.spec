@@ -11,7 +11,7 @@ URL:            https://chromium.googlesource.com/crosvm/crosvm
 
 Source:         https://chromium.googlesource.com/crosvm/crosvm/+archive/refs/heads/main.tar.gz
 
-Source1:        https://chromium.googlesource.com/chromiumos/platform/minijail/+archive/refs/heads/main.tar.gz
+Source1:        https://chromium.googlesource.com/chromiumos/platform/minijail/+archive/refs/heads/main.tar.gz#/minijail-main.tar.gz
 
 ExclusiveArch:  x86_64
 
@@ -32,7 +32,8 @@ devices, such as the virtio standard.
 CrosVM is currently used to run Linux/Android guests on ChromeOS devices.
 
 %prep
-%autosetup -c -a 1 -n third_party/minijail
+%autosetup -c
+%setup -a 1 -n third_party/minijail
 
 echo '
 [profile.rpm]
