@@ -26,7 +26,7 @@ jobs:
         dnf builddep -y SPECS/rust-*.spec &&
         rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -bp SPECS/rust-*.spec &&
         for file in BUILD/*/*/Cargo.toml; do
-          dnf install -y $(cargo2rpm --path $file buildrequires --with-check | xargs -n 1 printf "\"%s\" ")
+          dnf install -y $(cargo2rpm --path $file buildrequires --with-check | xargs)
         done &&
         rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -bb SPECS/rust-*.spec
 
