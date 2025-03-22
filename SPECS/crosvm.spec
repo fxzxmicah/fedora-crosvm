@@ -9,13 +9,14 @@ Summary:        CrosVM - Chrome OS Virtual Machine Monitor
 License:        BSD
 URL:            https://chromium.googlesource.com/crosvm/crosvm
 
-Source:        https://chromium.googlesource.com/crosvm/crosvm/+archive/refs/heads/main.tar.gz
+Source:         https://chromium.googlesource.com/crosvm/crosvm/+archive/refs/heads/main.tar.gz
+
+Source1:        https://chromium.googlesource.com/chromiumos/platform/minijail/+archive/refs/heads/main.tar.gz
 
 ExclusiveArch:  x86_64
 
 BuildRequires:  rust-packaging
 BuildRequires:  clang
-BuildRequires:  git-core
 BuildRequires:  pkgconfig(libcap)
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(gbm)
@@ -31,18 +32,7 @@ devices, such as the virtio standard.
 CrosVM is currently used to run Linux/Android guests on ChromeOS devices.
 
 %prep
-%autosetup -c -S git
-
-while IFS= read -r line; do
-    if [[ "$line" =~ path\ =\ (.*) ]]; then
-        path=${BASH_REMATCH[1]}
-    elif [[ "$line" =~ url\ =\ (.*) ]]; then
-        url=${BASH_REMATCH[1]}
-        echo "Add submodule: $url -> $path"
-        rm -r "$path"
-        git submodule add "$url" "$path"
-    fi
-done < .gitmodules
+%autosetup -c -a 1 -n third_party/minijail
 
 echo '
 [profile.rpm]
