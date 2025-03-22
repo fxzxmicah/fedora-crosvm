@@ -17,6 +17,7 @@ ExclusiveArch:  x86_64
 
 BuildRequires:  rust-packaging
 BuildRequires:  crate(anyhow/default)
+BuildRequires:  crate(argh/default)
 
 BuildRequires:  clang
 BuildRequires:  pkgconfig(libcap)
