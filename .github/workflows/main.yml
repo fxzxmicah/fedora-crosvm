@@ -37,7 +37,7 @@ jobs:
         for package in "${PACKAGES[@]}"; do
           dnf --refresh builddep -y SPECS/$package.spec &&
           rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -bp SPECS/$package.spec &&
-          cargo2rpm --path BUILD/$package*/*/Cargo.toml buildrequires --with-check | sed 's/^/"/; s/$/"/' | xargs dnf --refresh install
+          cargo2rpm --path BUILD/$package*/*/Cargo.toml buildrequires --with-check | sed 's/^/"/; s/$/"/' | xargs dnf --refresh install -y
           rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -bb SPECS/$package.spec &&
           createrepo --update ${GITHUB_WORKSPACE}/RPMS
         done
