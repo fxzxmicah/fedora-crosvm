@@ -23,7 +23,8 @@ jobs:
 
     - name: Create Local Repo
       run : |
-        createrepo ${GITHUB_WORKSPACE}/RPMS &&
+        mkdir -p ${GITHUB_WORKSPACE}/RPMS
+        createrepo ${GITHUB_WORKSPACE}/RPMS
         echo "[local-rpm]" | tee /etc/yum.repos.d/local-rpm.repo
         echo "name=Local RPM Repository" | tee -a /etc/yum.repos.d/local-rpm.repo
         echo "baseurl=file://${GITHUB_WORKSPACE}/RPMS" | tee -a /etc/yum.repos.d/local-rpm.repo
