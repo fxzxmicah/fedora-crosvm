@@ -44,8 +44,8 @@ jobs:
 
     - name: Build RPM
       run: |
-        dnf --refresh builddep -y SPECS/!("rust-"*).spec &&
-        rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -ba SPECS/!("rust-"*).spec
+        dnf --refresh builddep -y SPECS/crosvm.spec &&
+        rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -ba SPECS/crosvm.spec
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
