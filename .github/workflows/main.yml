@@ -23,6 +23,7 @@ jobs:
 
     - name: Build Dep RPM
       run: |
+        dnf builddep -y SPECS/rust-*.spec &&
         rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -br SPECS/rust-*.spec
         dnf builddep -y SPECS/rust-*.spec &&
         rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -bb SPECS/rust-*.spec
