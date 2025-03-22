@@ -16,7 +16,10 @@ jobs:
       run: dnf install -y dnf-plugins-core rpmdevtools createrepo_c
 
     - name: Get Files
-      run: spectool --get-files --directory=SOURCES --all SPECS/*.spec
+      run: |
+        for spec in SPECS/*.spec; do
+          spectool --directory SOURCES --get-files --all $spec
+        done
 
     - name: Build Dep RPM
       run: |
