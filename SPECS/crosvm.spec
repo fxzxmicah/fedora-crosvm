@@ -28,7 +28,7 @@ BuildRequires:  crate(smallvec/default)
 BuildRequires:  crate(static_assertions/default)
 BuildRequires:  crate(thiserror/default) < 2.0.0
 BuildRequires:  crate(uuid/default)
-BuildRequires:  crate(zerocopy/default)
+BuildRequires:  crate(zerocopy/default) > 0.8.0
 BuildRequires:  crate(p9/default)
 BuildRequires:  crate(ctrlc/default)
 BuildRequires:  crate(futures/default)
