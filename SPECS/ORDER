@@ -1,2 +1,4 @@
 rust-merge_derive
 rust-merge
+rust-p9_wire_format_derive
+rust-p9
