@@ -26,7 +26,7 @@ BuildRequires:  crate(merge/default)
 BuildRequires:  crate(remain/default)
 BuildRequires:  crate(smallvec/default)
 BuildRequires:  crate(static_assertions/default)
-BuildRequires:  crate(thiserror/default)
+BuildRequires:  crate(thiserror/default) < 2.0.0
 
 BuildRequires:  clang
 BuildRequires:  pkgconfig(libcap)
