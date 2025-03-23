@@ -28,6 +28,7 @@ BuildRequires:  crate(smallvec/default)
 BuildRequires:  crate(static_assertions/default)
 BuildRequires:  crate(thiserror/default) < 2.0.0
 BuildRequires:  crate(uuid/default)
+BuildRequires:  crate(zerocopy/default)
 
 BuildRequires:  clang
 BuildRequires:  pkgconfig(libcap)
