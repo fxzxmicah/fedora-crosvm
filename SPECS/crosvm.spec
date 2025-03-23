@@ -32,6 +32,7 @@ BuildRequires:  crate(zerocopy/default)
 BuildRequires:  crate(p9/default)
 BuildRequires:  crate(ctrlc/default)
 BuildRequires:  crate(futures/default)
+BuildRequires:  crate(rand/default) < 0.9.0
 
 BuildRequires:  clang
 BuildRequires:  pkgconfig(libcap)
