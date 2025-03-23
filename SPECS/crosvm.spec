@@ -30,6 +30,7 @@ BuildRequires:  crate(thiserror/default) < 2.0.0
 BuildRequires:  crate(uuid/default)
 BuildRequires:  crate(zerocopy/default)
 BuildRequires:  crate(p9/default)
+BuildRequires:  crate(ctrlc/default)
 
 BuildRequires:  clang
 BuildRequires:  pkgconfig(libcap)
