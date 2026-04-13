@@ -2,21 +2,23 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate p9
+%global crate named-lock
 
-Name:           rust-p9
-Version:        0.3.2
+Name:           rust-named-lock
+Version:        0.4.1
 Release:        %autorelease
-Summary:        Server implementation of the 9p file system protocol
+Summary:        Cross-platform implementation of cross-process named locks
 
-License:        BSD-3-Clause
-URL:            https://crates.io/crates/p9
+License:        MIT
+URL:            https://crates.io/crates/named-lock
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          named-lock-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Server implementation of the 9p file system protocol.}
+Cross-platform implementation of cross-process named locks.}
 
 %description %{_description}
 
@@ -31,7 +33,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CONTRIBUTING.md
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -45,18 +47,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+trace-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+trace-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "trace" feature of the "%{crate}" crate.
-
-%files       -n %{name}+trace-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

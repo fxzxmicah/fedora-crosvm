@@ -13,7 +13,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Install Tools
-      run: dnf install -y dnf-plugins-core rpmdevtools createrepo_c
+      run: dnf install -y dnf5-plugins rpmdevtools createrepo_c
 
     - name: Get Files
       run: |
@@ -35,17 +35,17 @@ jobs:
       run: |
         PACKAGES=($(<SPECS/ORDER))
         for package in "${PACKAGES[@]}"; do
-          dnf --refresh builddep -y SPECS/$package.spec &&
-          rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -bp SPECS/$package.spec &&
-          cargo2rpm --path BUILD/$package*/*/Cargo.toml buildrequires --with-check | sed 's/^/"/; s/$/"/' | xargs dnf --refresh install -y
-          rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -bb SPECS/$package.spec &&
+          dnf --refresh builddep -y SPECS/$package.spec
+          rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -br SPECS/$package.spec || dnf --refresh builddep -y SRPMS/*.buildreqs.nosrc.rpm && rm SRPMS/*.buildreqs.nosrc.rpm
+          rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -bb SPECS/$package.spec
           createrepo --update ${GITHUB_WORKSPACE}/RPMS
         done
 
     - name: Build RPM
       run: |
-        dnf --refresh builddep -y SPECS/crosvm.spec &&
-        rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -ba SPECS/crosvm.spec
+        dnf --refresh builddep -y SPECS/crosvm.spec
+        rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -br SPECS/$package.spec || dnf --refresh builddep -y SRPMS/*.buildreqs.nosrc.rpm && rm SRPMS/*.buildreqs.nosrc.rpm
+        rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -bb SPECS/crosvm.spec
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
