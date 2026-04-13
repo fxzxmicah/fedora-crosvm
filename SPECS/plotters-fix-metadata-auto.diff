@@ -1,0 +1,33 @@
+--- plotters-0.3.7/Cargo.toml	1970-01-01T00:00:01+00:00
++++ plotters-0.3.7/Cargo.toml	2026-04-13T21:18:36.234107+00:00
+@@ -257,25 +257,6 @@
+     "pathfinder_geometry",
+ ]
+ 
+-[target.'cfg(all(target_arch = "wasm32", not(target_os = "wasi")))'.dependencies.wasm-bindgen]
+-version = "0.2.89"
+-
+-[target.'cfg(all(target_arch = "wasm32", not(target_os = "wasi")))'.dependencies.web-sys]
+-version = "0.3.66"
+-features = [
+-    "Document",
+-    "DomRect",
+-    "Element",
+-    "HtmlElement",
+-    "Node",
+-    "Window",
+-    "HtmlCanvasElement",
+-    "CanvasRenderingContext2d",
+-]
+-
+-[target.'cfg(all(target_arch = "wasm32", not(target_os = "wasi")))'.dev-dependencies.wasm-bindgen-test]
+-version = "0.3.39"
+-
+ [target.'cfg(not(all(target_arch = "wasm32", not(target_os = "wasi"))))'.dependencies.ab_glyph]
+ version = "0.2.12"
+ optional = true
+@@ -327,3 +308,4 @@
+ level = "warn"
+ priority = 0
+ check-cfg = ["cfg(doc_cfg)"]
++

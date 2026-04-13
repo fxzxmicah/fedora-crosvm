@@ -12,19 +12,20 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    - name: Install Tools
-      run: dnf install -y dnf5-plugins rpmdevtools createrepo_c
+    - name: Restore RPM Cache
+      uses: actions/cache/restore@v4
+      with:
+        path: RPMS
+        key: ${{ runner.os }}-${{ github.event.repository.name }}-${{ github.run_id }}-${{ github.run_attempt }}
+        restore-keys: ${{ runner.os }}-${{ github.event.repository.name }}
 
-    - name: Get Files
-      run: |
-        for spec in SPECS/*.spec; do
-          spectool --define "_topdir ${GITHUB_WORKSPACE}" -R --get-files --all $spec
-        done
+    - name: Install Tools
+      run: dnf install -y rpmdevtools createrepo_c
 
     - name: Create Local Repo
       run : |
-        mkdir -p ${GITHUB_WORKSPACE}/RPMS
-        createrepo ${GITHUB_WORKSPACE}/RPMS
+        mkdir -p RPMS
+        createrepo RPMS
         echo "[local-rpm]" | tee /etc/yum.repos.d/local-rpm.repo
         echo "name=Local RPM Repository" | tee -a /etc/yum.repos.d/local-rpm.repo
         echo "baseurl=file://${GITHUB_WORKSPACE}/RPMS" | tee -a /etc/yum.repos.d/local-rpm.repo
@@ -33,18 +34,26 @@ jobs:
 
     - name: Build Dep RPM
       run: |
+        set -euo pipefail
         PACKAGES=($(<SPECS/ORDER))
         for package in "${PACKAGES[@]}"; do
-          dnf --refresh builddep -y SPECS/$package.spec
-          rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -br SPECS/$package.spec || dnf --refresh builddep -y SRPMS/*.buildreqs.nosrc.rpm && rm SRPMS/*.buildreqs.nosrc.rpm
-          rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -bb SPECS/$package.spec
-          createrepo --update ${GITHUB_WORKSPACE}/RPMS
+          if rpmspec -q --builtrpms SPECS/${package}.spec | while read -r name; do compgen -G "RPMS/*/${name}.rpm" > /dev/null || exit 1; done; then
+            echo "Skipping ${package}"
+            continue
+          fi
+
+          spectool --define "_topdir ${GITHUB_WORKSPACE}" -R --get-files --all SPECS/${package}.spec
+          dnf --refresh builddep -y SPECS/${package}.spec
+          rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -br SPECS/${package}.spec || dnf --refresh builddep -y SRPMS/*.buildreqs.nosrc.rpm && rm -f SRPMS/*.buildreqs.nosrc.rpm
+          rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -bb SPECS/${package}.spec
+          createrepo --update RPMS
         done
 
     - name: Build RPM
       run: |
+        spectool --define "_topdir ${GITHUB_WORKSPACE}" -R --get-files --all SPECS/crosvm.spec
         dnf --refresh builddep -y SPECS/crosvm.spec
-        rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -br SPECS/$package.spec || dnf --refresh builddep -y SRPMS/*.buildreqs.nosrc.rpm && rm SRPMS/*.buildreqs.nosrc.rpm
+        rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -br SPECS/crosvm.spec || dnf --refresh builddep -y SRPMS/*.buildreqs.nosrc.rpm && rm -f SRPMS/*.buildreqs.nosrc.rpm
         rpmbuild --define "_topdir ${GITHUB_WORKSPACE}" -bb SPECS/crosvm.spec
 
     - name: Upload Artifact
@@ -52,3 +61,10 @@ jobs:
       with:
         name: rpm-package
         path: RPMS/
+
+    - name: Save RPM Cache
+      if: always()
+      uses: actions/cache/save@v4
+      with:
+        path: RPMS
+        key: ${{ runner.os }}-${{ github.event.repository.name }}-${{ github.run_id }}-${{ github.run_attempt }}
