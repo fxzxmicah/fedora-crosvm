@@ -2,21 +2,22 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate cros-codecs
+%global crate criterion-plot
 
-Name:           rust-cros-codecs
-Version:        0.0.4
+Name:           rust-criterion-plot
+Version:        0.4.5
 Release:        %autorelease
-Summary:        Hardware-accelerated codecs for Linux
+Summary:        Criterion's plotting library
 
-License:        BSD-3-Clause
-URL:            https://crates.io/crates/cros-codecs
+# Upstream license specification: MIT/Apache-2.0
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/criterion-plot
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Hardware-accelerated codecs for Linux.}
+Criterion's plotting library.}
 
 %description %{_description}
 
@@ -30,7 +31,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
@@ -45,30 +47,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+libva-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+libva-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "libva" feature of the "%{crate}" crate.
-
-%files       -n %{name}+libva-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+vaapi-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+vaapi-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "vaapi" feature of the "%{crate}" crate.
-
-%files       -n %{name}+vaapi-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

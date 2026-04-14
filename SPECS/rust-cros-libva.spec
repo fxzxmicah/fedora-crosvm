@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate cros-codecs
+%global crate cros-libva
 
-Name:           rust-cros-codecs
+Name:           rust-cros-libva
 Version:        0.0.4
 Release:        %autorelease
-Summary:        Hardware-accelerated codecs for Linux
+Summary:        Safe bindings over libva
 
 License:        BSD-3-Clause
-URL:            https://crates.io/crates/cros-codecs
+URL:            https://crates.io/crates/cros-libva
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Hardware-accelerated codecs for Linux.}
+Safe bindings over libva.}
 
 %description %{_description}
 
@@ -45,30 +45,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+libva-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+libva-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "libva" feature of the "%{crate}" crate.
-
-%files       -n %{name}+libva-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+vaapi-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+vaapi-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "vaapi" feature of the "%{crate}" crate.
-
-%files       -n %{name}+vaapi-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

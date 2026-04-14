@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate cros-codecs
+%global crate gbm-sys
 
-Name:           rust-cros-codecs
-Version:        0.0.4
+Name:           rust-gbm-sys
+Version:        0.2.2
 Release:        %autorelease
-Summary:        Hardware-accelerated codecs for Linux
+Summary:        Bindgen generated unsafe libgbm wrapper
 
-License:        BSD-3-Clause
-URL:            https://crates.io/crates/cros-codecs
+License:        MIT
+URL:            https://crates.io/crates/gbm-sys
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Hardware-accelerated codecs for Linux.}
+Bindgen generated unsafe libgbm wrapper.}
 
 %description %{_description}
 
@@ -30,9 +30,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CONTRIBUTING.md
-%doc %{crate_instdir}/README.md
+# FIXME: no license files detected
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -47,28 +45,40 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+libva-devel
+%package     -n %{name}+bindgen-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+libva-devel %{_description}
+%description -n %{name}+bindgen-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "libva" feature of the "%{crate}" crate.
+use the "bindgen" feature of the "%{crate}" crate.
 
-%files       -n %{name}+libva-devel
+%files       -n %{name}+bindgen-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+vaapi-devel
+%package     -n %{name}+gen-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+vaapi-devel %{_description}
+%description -n %{name}+gen-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "vaapi" feature of the "%{crate}" crate.
+use the "gen" feature of the "%{crate}" crate.
 
-%files       -n %{name}+vaapi-devel
+%files       -n %{name}+gen-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+update_bindings-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+update_bindings-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "update_bindings" feature of the "%{crate}" crate.
+
+%files       -n %{name}+update_bindings-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

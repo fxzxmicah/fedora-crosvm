@@ -2,21 +2,22 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate cros-codecs
+%global crate random-trait
 
-Name:           rust-cros-codecs
-Version:        0.0.4
+Name:           rust-random-trait
+Version:        0.1.1
 Release:        %autorelease
-Summary:        Hardware-accelerated codecs for Linux
+Summary:        Rust library for a random trait meant to produce random generic types
 
-License:        BSD-3-Clause
-URL:            https://crates.io/crates/cros-codecs
+# Upstream license specification: MIT/Apache-2.0
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/random-trait
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Hardware-accelerated codecs for Linux.}
+Rust library for a random trait meant to produce random generic types.}
 
 %description %{_description}
 
@@ -30,9 +31,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CONTRIBUTING.md
-%doc %{crate_instdir}/README.md
+# FIXME: no license files detected
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -47,32 +46,35 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+libva-devel
+%package     -n %{name}+doc-comment-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+libva-devel %{_description}
+%description -n %{name}+doc-comment-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "libva" feature of the "%{crate}" crate.
+use the "doc-comment" feature of the "%{crate}" crate.
 
-%files       -n %{name}+libva-devel
+%files       -n %{name}+doc-comment-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+vaapi-devel
+%package     -n %{name}+u128-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+vaapi-devel %{_description}
+%description -n %{name}+u128-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "vaapi" feature of the "%{crate}" crate.
+use the "u128" feature of the "%{crate}" crate.
 
-%files       -n %{name}+vaapi-devel
+%files       -n %{name}+u128-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+
+touch README.md
+
 %cargo_prep
 
 %generate_buildrequires

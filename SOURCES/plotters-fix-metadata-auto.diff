@@ -1,5 +1,5 @@
 --- plotters-0.3.7/Cargo.toml	1970-01-01T00:00:01+00:00
-+++ plotters-0.3.7/Cargo.toml	2026-04-13T21:18:36.234107+00:00
++++ plotters-0.3.7/Cargo.toml	2026-04-14T00:37:25.975723+00:00
 @@ -257,25 +257,6 @@
      "pathfinder_geometry",
  ]

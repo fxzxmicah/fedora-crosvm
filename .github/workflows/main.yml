@@ -20,7 +20,9 @@ jobs:
         restore-keys: ${{ runner.os }}-${{ github.event.repository.name }}
 
     - name: Install Tools
-      run: dnf install -y rpmdevtools createrepo_c
+      run: |
+        rm /etc/yum.repos.d/fedora-cisco-openh264.repo
+        dnf install -y rpmdevtools createrepo_c
 
     - name: Create Local Repo
       run : |

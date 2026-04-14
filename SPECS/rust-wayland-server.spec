@@ -2,21 +2,22 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate cros-codecs
+%global crate wayland-server
 
-Name:           rust-cros-codecs
-Version:        0.0.4
+Name:           rust-wayland-server
+Version:        0.30.1
 Release:        %autorelease
-Summary:        Hardware-accelerated codecs for Linux
+Summary:        Bindings to the standard C implementation of the wayland protocol, server side
 
-License:        BSD-3-Clause
-URL:            https://crates.io/crates/cros-codecs
+License:        MIT
+URL:            https://crates.io/crates/wayland-server
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Hardware-accelerated codecs for Linux.}
+Bindings to the standard C implementation of the wayland protocol,
+server side.}
 
 %description %{_description}
 
@@ -30,8 +31,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CONTRIBUTING.md
+%license %{crate_instdir}/LICENSE.txt
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -47,28 +48,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+libva-devel
+%package     -n %{name}+log-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+libva-devel %{_description}
+%description -n %{name}+log-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "libva" feature of the "%{crate}" crate.
+use the "log" feature of the "%{crate}" crate.
 
-%files       -n %{name}+libva-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+vaapi-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+vaapi-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "vaapi" feature of the "%{crate}" crate.
-
-%files       -n %{name}+vaapi-devel
+%files       -n %{name}+log-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

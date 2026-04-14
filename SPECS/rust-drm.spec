@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate cros-codecs
+%global crate drm
 
-Name:           rust-cros-codecs
-Version:        0.0.4
+Name:           rust-drm
+Version:        0.9.0
 Release:        %autorelease
-Summary:        Hardware-accelerated codecs for Linux
+Summary:        Safe, low-level bindings to the Direct Rendering Manager API
 
-License:        BSD-3-Clause
-URL:            https://crates.io/crates/cros-codecs
+License:        MIT
+URL:            https://crates.io/crates/drm
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Hardware-accelerated codecs for Linux.}
+Safe, low-level bindings to the Direct Rendering Manager API.}
 
 %description %{_description}
 
@@ -31,7 +31,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -47,28 +46,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+libva-devel
+%package     -n %{name}+use_bindgen-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+libva-devel %{_description}
+%description -n %{name}+use_bindgen-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "libva" feature of the "%{crate}" crate.
+use the "use_bindgen" feature of the "%{crate}" crate.
 
-%files       -n %{name}+libva-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+vaapi-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+vaapi-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "vaapi" feature of the "%{crate}" crate.
-
-%files       -n %{name}+vaapi-devel
+%files       -n %{name}+use_bindgen-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

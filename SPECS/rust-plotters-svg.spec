@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate cros-codecs
+%global crate plotters-svg
 
-Name:           rust-cros-codecs
-Version:        0.0.4
+Name:           rust-plotters-svg
+Version:        0.3.7
 Release:        %autorelease
-Summary:        Hardware-accelerated codecs for Linux
+Summary:        Plotters SVG backend
 
-License:        BSD-3-Clause
-URL:            https://crates.io/crates/cros-codecs
+License:        MIT
+URL:            https://crates.io/crates/plotters-svg
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Hardware-accelerated codecs for Linux.}
+Plotters SVG backend.}
 
 %description %{_description}
 
@@ -31,7 +31,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CONTRIBUTING.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -47,28 +46,40 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+libva-devel
+%package     -n %{name}+bitmap_encoder-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+libva-devel %{_description}
+%description -n %{name}+bitmap_encoder-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "libva" feature of the "%{crate}" crate.
+use the "bitmap_encoder" feature of the "%{crate}" crate.
 
-%files       -n %{name}+libva-devel
+%files       -n %{name}+bitmap_encoder-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+vaapi-devel
+%package     -n %{name}+debug-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+vaapi-devel %{_description}
+%description -n %{name}+debug-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "vaapi" feature of the "%{crate}" crate.
+use the "debug" feature of the "%{crate}" crate.
 
-%files       -n %{name}+vaapi-devel
+%files       -n %{name}+debug-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+image-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+image-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "image" feature of the "%{crate}" crate.
+
+%files       -n %{name}+image-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

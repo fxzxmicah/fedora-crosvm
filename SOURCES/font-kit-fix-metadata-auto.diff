@@ -1,0 +1,35 @@
+--- font-kit-0.14.3/Cargo.toml	1970-01-01T00:00:01+00:00
++++ font-kit-0.14.3/Cargo.toml	2026-04-14T00:44:51.860041+00:00
+@@ -109,15 +109,6 @@
+ source-fontconfig-default = ["source-fontconfig"]
+ source-fontconfig-dlopen = ["yeslogic-fontconfig-sys/dlopen"]
+ 
+-[target.'cfg(any(target_os = "macos", target_os = "ios"))'.dependencies.core-foundation]
+-version = "0.9"
+-
+-[target.'cfg(any(target_os = "macos", target_os = "ios"))'.dependencies.core-graphics]
+-version = "0.23"
+-
+-[target.'cfg(any(target_os = "macos", target_os = "ios"))'.dependencies.core-text]
+-version = "20.1.0"
+-
+ [target.'cfg(not(any(target_arch = "wasm32", target_family = "windows", target_os = "android", target_env = "ohos")))'.dependencies.dirs]
+ version = "6.0"
+ 
+@@ -130,16 +121,3 @@
+ [target.'cfg(not(target_arch = "wasm32"))'.dependencies.walkdir]
+ version = "2.1"
+ 
+-[target.'cfg(target_family = "windows")'.dependencies.dwrote]
+-version = "^0.11.3"
+-default-features = false
+-
+-[target.'cfg(target_family = "windows")'.dependencies.winapi]
+-version = "0.3"
+-features = [
+-    "dwrite",
+-    "minwindef",
+-    "sysinfoapi",
+-    "winbase",
+-    "winnt",
+-]

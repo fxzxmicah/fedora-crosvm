@@ -5,10 +5,11 @@
 %global crate criterion
 
 Name:           rust-criterion
-Version:        0.8.2
+Version:        0.3.6
 Release:        %autorelease
 Summary:        Statistics-driven micro-benchmarking library
 
+# Upstream license specification: Apache-2.0/MIT
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/criterion
 Source:         %{crates_source}
@@ -61,6 +62,18 @@ use the "async" feature of the "%{crate}" crate.
 %files       -n %{name}+async-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+async-std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+async-std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "async-std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+async-std-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+async_futures-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -83,6 +96,18 @@ This package contains library source intended for building other packages which
 use the "async_smol" feature of the "%{crate}" crate.
 
 %files       -n %{name}+async_smol-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+async_std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+async_std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "async_std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+async_std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+async_tokio-devel
@@ -121,6 +146,18 @@ use the "csv_output" feature of the "%{crate}" crate.
 %files       -n %{name}+csv_output-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+futures-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+futures-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "futures" feature of the "%{crate}" crate.
+
+%files       -n %{name}+futures-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+html_reports-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -131,30 +168,6 @@ This package contains library source intended for building other packages which
 use the "html_reports" feature of the "%{crate}" crate.
 
 %files       -n %{name}+html_reports-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+plotters-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+plotters-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "plotters" feature of the "%{crate}" crate.
-
-%files       -n %{name}+plotters-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+rayon-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+rayon-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "rayon" feature of the "%{crate}" crate.
-
-%files       -n %{name}+rayon-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+real_blackbox-devel
@@ -169,6 +182,18 @@ use the "real_blackbox" feature of the "%{crate}" crate.
 %files       -n %{name}+real_blackbox-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+smol-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+smol-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "smol" feature of the "%{crate}" crate.
+
+%files       -n %{name}+smol-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+stable-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -179,6 +204,18 @@ This package contains library source intended for building other packages which
 use the "stable" feature of the "%{crate}" crate.
 
 %files       -n %{name}+stable-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tokio-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tokio-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tokio" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
